@@ -1,6 +1,6 @@
 package com.nolnol.useminserver.domain.member;
 
-import com.nolnol.useminserver.domain.post.Post;
+import com.nolnol.useminserver.domain.post.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +25,6 @@ public class Member {
     @Column(nullable = false)
     private String profileUrl;
 
-    @OneToMany(mappedBy = "writer")
-    private List<Post> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "owner")
+    private List<Item> items = new ArrayList<>();
 }
