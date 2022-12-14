@@ -2,6 +2,7 @@ package com.nolnol.useminserver.domain.member;
 
 import com.nolnol.useminserver.domain.post.Item;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,11 @@ public class Member {
 
     @OneToMany(mappedBy = "owner")
     private List<Item> items = new ArrayList<>();
+
+    @Builder
+    public Member(String id, String nickname, String profileUrl) {
+        this.id = id;
+        this.nickname = nickname;
+        this.profileUrl = profileUrl;
+    }
 }
