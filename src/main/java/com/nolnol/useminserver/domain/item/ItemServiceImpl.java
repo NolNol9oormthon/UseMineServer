@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -55,5 +57,15 @@ public class ItemServiceImpl implements ItemService {
                                     .availableEndTime(item.getAvailableEndTime())
                                     .state(item.getState())
                                     .build();
+    }
+
+    @Override
+    public List<Item> getItems(String category) {
+        if (category == null) {
+            return itemRepository.findAllBeforeExpiration(LocalDateTime.now());
+        }
+        category = category.toUpperCase();
+
+        return itemRepository.findAllByCategoryBeforeExpiration(Category.valueOf(category), LocalDateTime.now());
     }
 }

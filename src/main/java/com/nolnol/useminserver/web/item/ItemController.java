@@ -1,16 +1,20 @@
 package com.nolnol.useminserver.web.item;
 
+import com.nolnol.useminserver.domain.item.Item;
 import com.nolnol.useminserver.domain.item.ItemService;
 import com.nolnol.useminserver.domain.member.Member;
 import com.nolnol.useminserver.domain.member.MemberService;
 import com.nolnol.useminserver.web.item.model.ItemCreateRequestDto;
 import com.nolnol.useminserver.web.item.model.ItemDetailResponseDto;
+import com.nolnol.useminserver.web.item.model.ItemListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,4 +40,13 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/items")
+    public ResponseEntity<List<ItemListResponseDto>> getItems(@RequestParam(name = "category", required = false) String category) {
+        List<Item> itemList = itemService.getItems(category);
+        List<ItemListResponseDto> response = itemList.stream()
+                                                     .map(ItemListResponseDto::new)
+                                                     .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
 }
