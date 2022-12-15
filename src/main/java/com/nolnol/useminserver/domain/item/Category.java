@@ -8,7 +8,7 @@ public enum Category {
     CLOTHES("의류"),
     NECESSITIES("생활 용품"),
     SOUVENIR("기념품"),
-    ELECTRONICS("전자 기기"),
+    COUPON("할인권"),
     ETC("기타");
 
     private final String value;
