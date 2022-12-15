@@ -49,4 +49,13 @@ public class ItemController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/items/{itemId}")
+    public ResponseEntity<Void> deleteItem(@RequestHeader("Logined-User") Long memberId, @PathVariable Long itemId) {
+        Member loginedMember = memberService.findById(memberId);
+        ItemDetailResponseDto response = itemService.getDetails(itemId);
+        response.checkOwner(loginedMember);
+
+        return ResponseEntity.ok().build();
+    }
 }
