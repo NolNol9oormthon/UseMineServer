@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LoginResponseDto {
 
-    private String id;
+    private Long id;
     private String nickname;
 
     public LoginResponseDto(Member member) {

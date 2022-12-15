@@ -5,5 +5,5 @@ import com.nolnol.useminserver.web.member.model.LoginResponseDto;
 
 public interface MemberService {
     LoginResponseDto login(LoginRequestDto loginRequestDto);
-    Member findById(String ownerId);
+    Member findById(Long ownerId);
 }

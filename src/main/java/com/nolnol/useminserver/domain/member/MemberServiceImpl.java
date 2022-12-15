@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member findById(String ownerId) {
+    public Member findById(Long ownerId) {
         return memberRepository.findById(ownerId)
                                .orElseThrow(NoSuchElementException::new);
     }

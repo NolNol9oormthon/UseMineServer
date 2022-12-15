@@ -23,7 +23,7 @@ public class ItemCreateRequestDto {
     private String content;
 
     @NotBlank
-    private String ownerId;
+    private Long ownerId;
 
     @NotBlank
     private String category;
