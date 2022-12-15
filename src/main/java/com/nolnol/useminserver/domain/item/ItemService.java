@@ -14,4 +14,6 @@ public interface ItemService {
     ItemDetailResponseDto getDetails(Long itemId);
 
     List<Item> getItems(String category, Long cursorId);
+
+    Item findById(Long itemId);
 }

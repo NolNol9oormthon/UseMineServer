@@ -85,4 +85,9 @@ public class ItemServiceImpl implements ItemService {
                 cursorId,
                 10);
     }
+
+    @Override
+    public Item findById(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
+    }
 }
