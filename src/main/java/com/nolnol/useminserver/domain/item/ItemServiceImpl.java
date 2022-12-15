@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Long create(Member member, ItemCreateRequestDto itemCreateRequestDto) throws IOException {
         MultipartFile imageFile = itemCreateRequestDto.getImageFile();
-        String fileName = member.getId() + "-" + imageFile.getOriginalFilename();
+        String fileName = member.getId() + "-" + LocalDateTime.now() + "-" + imageFile.getOriginalFilename();
         String imageUrl = s3Utils.upload(imageFile, fileName);
 
         Item item = Item.builder()
@@ -60,12 +60,29 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getItems(String category) {
+    public List<Item> getItems(String category, Long cursorId) {
+        Item cursorItem;
+        if (cursorId == null) {
+            cursorItem = itemRepository.findByMinStartTime().orElseThrow(NoSuchElementException::new);
+            cursorId = cursorItem.getId();
+        } else {
+            cursorItem = itemRepository.findById(cursorId).orElseThrow(NoSuchElementException::new);
+        }
+
         if (category == null) {
-            return itemRepository.findAllBeforeExpiration(LocalDateTime.now());
+            return itemRepository.findAllBeforeExpiration(
+                    LocalDateTime.now(),
+                    cursorItem.getAvailableStartTime(),
+                    cursorId,
+                    10);
         }
         category = category.toUpperCase();
 
-        return itemRepository.findAllByCategoryBeforeExpiration(Category.valueOf(category), LocalDateTime.now());
+        return itemRepository.findAllByCategoryBeforeExpiration(
+                category,
+                LocalDateTime.now(),
+                cursorItem.getAvailableStartTime(),
+                cursorId,
+                10);
     }
 }
