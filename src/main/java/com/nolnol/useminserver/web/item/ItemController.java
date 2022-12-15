@@ -24,7 +24,7 @@ public class ItemController {
 
     @PostMapping("/items")
     public ResponseEntity<Void> createItem(@Valid @ModelAttribute ItemCreateRequestDto itemCreateRequestDto) throws IOException {
-        Member owner = memberService.findById(itemCreateRequestDto.getOwnerId());
+        Member owner = memberService.findById(Long.parseLong(itemCreateRequestDto.getOwnerId()));
         itemService.create(owner, itemCreateRequestDto);
 
         return ResponseEntity.ok().build();
