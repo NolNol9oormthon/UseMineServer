@@ -1,7 +1,8 @@
-package com.nolnol.useminserver.domain.post;
+package com.nolnol.useminserver.domain.item;
 
 import com.nolnol.useminserver.domain.member.Member;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,9 +19,6 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String title;
-
     @Lob
     @Column(nullable = false)
     private String content;
@@ -36,10 +34,11 @@ public class Item {
     @Column(nullable = false)
     private State state;
 
-    @OneToOne
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Category category;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 30, nullable = false)
     private String itemName;
 
     @Column(nullable = false)
@@ -50,5 +49,18 @@ public class Item {
 
     @Column(nullable = false)
     private LocalDateTime availableEndTime;
+
+    @Builder
+    public Item(String content, String chatUrl, Member owner, Category category, String itemName, String imageUrl, LocalDateTime availableStartTime, LocalDateTime availableEndTime) {
+        this.content = content;
+        this.chatUrl = chatUrl;
+        this.owner = owner;
+        this.category = category;
+        this.itemName = itemName;
+        this.imageUrl = imageUrl;
+        this.availableStartTime = availableStartTime;
+        this.availableEndTime = availableEndTime;
+        this.state = State.AVAILABLE;
+    }
 }
 

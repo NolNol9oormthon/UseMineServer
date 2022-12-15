@@ -1,6 +1,6 @@
 package com.nolnol.useminserver.domain.member;
 
-import com.nolnol.useminserver.domain.post.Item;
+import com.nolnol.useminserver.domain.item.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.nolnol.useminserver.domain.post;
+package com.nolnol.useminserver.domain.item;
 
 import lombok.Getter;
 

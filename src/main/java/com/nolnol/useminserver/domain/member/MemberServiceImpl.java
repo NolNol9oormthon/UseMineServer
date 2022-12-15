@@ -5,6 +5,7 @@ import com.nolnol.useminserver.web.member.model.LoginResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -28,5 +29,11 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         return new LoginResponseDto(member);
+    }
+
+    @Override
+    public Member findById(String ownerId) {
+        return memberRepository.findById(ownerId)
+                               .orElseThrow(NoSuchElementException::new);
     }
 }
