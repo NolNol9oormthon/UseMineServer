@@ -33,4 +33,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query(value = "select * from item i order by i.available_start_time, i.id limit 1", nativeQuery = true)
     Optional<Item> findByMinStartTime();
+
+    List<Item> findAllByOwnerIdOrderByIdDesc(Long memberId);
 }

@@ -2,11 +2,10 @@ package com.nolnol.useminserver.web.item;
 
 import com.nolnol.useminserver.domain.item.Item;
 import com.nolnol.useminserver.domain.item.ItemService;
+import com.nolnol.useminserver.domain.item.State;
 import com.nolnol.useminserver.domain.member.Member;
 import com.nolnol.useminserver.domain.member.MemberService;
-import com.nolnol.useminserver.web.item.model.ItemCreateRequestDto;
-import com.nolnol.useminserver.web.item.model.ItemDetailResponseDto;
-import com.nolnol.useminserver.web.item.model.ItemListResponseDto;
+import com.nolnol.useminserver.web.item.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +40,7 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public ResponseEntity<List<ItemListResponseDto>> getItems(@RequestParam(name = "category", required = false) String category, @RequestParam(name="cursorId", required = false) Long cursorId) {
+    public ResponseEntity<List<ItemListResponseDto>> getItems(@RequestParam(name = "category", required = false) String category, @RequestParam(name = "cursorId", required = false) Long cursorId) {
         List<Item> itemList = itemService.getItems(category, cursorId);
         List<ItemListResponseDto> response = itemList.stream()
                                                      .map(ItemListResponseDto::new)
@@ -60,5 +59,10 @@ public class ItemController {
         }
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/my-items")
+    public ResponseEntity<MyItemListDto> getMyItemList(@RequestHeader("Logined-User") Long memberId) {
+        return ResponseEntity.ok(itemService.findAllByOwnerId(memberId));
     }
 }

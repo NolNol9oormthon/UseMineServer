@@ -4,6 +4,8 @@ import com.nolnol.useminserver.domain.member.Member;
 import com.nolnol.useminserver.global.s3.S3Utils;
 import com.nolnol.useminserver.web.item.model.ItemCreateRequestDto;
 import com.nolnol.useminserver.web.item.model.ItemDetailResponseDto;
+import com.nolnol.useminserver.web.item.model.ItemDto;
+import com.nolnol.useminserver.web.item.model.MyItemListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,5 +91,32 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item findById(Long itemId) {
         return itemRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public MyItemListDto findAllByOwnerId(Long memberId) {
+        List<Item> items = itemRepository.findAllByOwnerIdOrderByIdDesc(memberId);
+        MyItemListDto myItemListDto = new MyItemListDto();
+        items.forEach(item -> {
+            if (item.getState().equals(State.COMPLETE)) {
+                myItemListDto.addCompletedItem(ItemDto.builder()
+                                                 .itemId(item.getId())
+                                                 .itemName(item.getItemName())
+                                                 .imageUrl(item.getImageUrl())
+                                                 .state(item.getState())
+                                                 .build()
+                );
+            } else {
+                myItemListDto.addNotCompletedItem(ItemDto.builder()
+                                                    .itemId(item.getId())
+                                                    .itemName(item.getItemName())
+                                                    .imageUrl(item.getImageUrl())
+                                                    .state(item.getState())
+                                                    .build()
+                );
+            }
+        });
+
+        return myItemListDto;
     }
 }
