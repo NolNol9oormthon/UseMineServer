@@ -66,5 +66,13 @@ public class Item {
     public void complete() {
         this.state = State.COMPLETE;
     }
+
+    public void available() {
+        this.state = State.AVAILABLE;
+    }
+
+    public void reserved() {
+        this.state = State.RESERVED;
+    }
 }
 

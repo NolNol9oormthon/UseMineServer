@@ -128,4 +128,20 @@ public class ItemServiceImpl implements ItemService {
 
         return myItemListDto;
     }
+
+    @Override
+    public void updateState(Item item, String state) {
+        state = state.toUpperCase();
+        if (State.AVAILABLE.getValue().equals(state)) {
+            item.available();
+            return;
+        }
+
+        if (State.RESERVED.getValue().equals(state)) {
+            item.reserved();
+            return;
+        }
+
+        item.complete();
+    }
 }

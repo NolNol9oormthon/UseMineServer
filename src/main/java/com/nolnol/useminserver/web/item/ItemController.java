@@ -61,6 +61,19 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/items/{itemId}")
+    public ResponseEntity<Void> updateState(@RequestHeader("Logined-User") Long memberId, @PathVariable Long itemId, @RequestParam(name = "state") String state) {
+        Member loginedMember = memberService.findById(memberId);
+        Item item = itemService.findById(itemId);
+
+        if (!loginedMember.getId().equals(item.getOwner().getId())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        itemService.updateState(item, state);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/my-items")
     public ResponseEntity<MyItemListDto> getMyItemList(@RequestHeader("Logined-User") Long memberId) {
         return ResponseEntity.ok(itemService.findAllByOwnerId(memberId));

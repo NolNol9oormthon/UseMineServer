@@ -19,4 +19,6 @@ public interface ItemService {
     Item findById(Long itemId);
 
     MyItemListDto findAllByOwnerId(Long memberId);
+
+    void updateState(Item item, String state);
 }
