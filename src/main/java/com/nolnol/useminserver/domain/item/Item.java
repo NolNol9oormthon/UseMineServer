@@ -62,5 +62,9 @@ public class Item {
         this.availableEndTime = availableEndTime;
         this.state = State.AVAILABLE;
     }
+
+    public void complete() {
+        this.state = State.COMPLETE;
+    }
 }
 

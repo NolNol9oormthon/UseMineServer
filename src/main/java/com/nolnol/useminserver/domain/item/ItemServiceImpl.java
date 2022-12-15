@@ -8,6 +8,7 @@ import com.nolnol.useminserver.web.item.model.ItemDto;
 import com.nolnol.useminserver.web.item.model.MyItemListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -93,11 +94,18 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(itemId).orElseThrow(NoSuchElementException::new);
     }
 
+    @Transactional
     @Override
     public MyItemListDto findAllByOwnerId(Long memberId) {
         List<Item> items = itemRepository.findAllByOwnerIdOrderByIdDesc(memberId);
         MyItemListDto myItemListDto = new MyItemListDto();
+        LocalDateTime now = LocalDateTime.now();
+
         items.forEach(item -> {
+            if (item.getAvailableEndTime().isBefore(now)) {
+                item.complete();
+            }
+
             if (item.getState().equals(State.COMPLETE)) {
                 myItemListDto.addCompletedItem(ItemDto.builder()
                                                  .itemId(item.getId())
