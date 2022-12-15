@@ -36,4 +36,8 @@ public class S3Utils {
 
         return cloudFrontDomain + "/" + fileName;
     }
+
+    public void remove(String imageUrl) {
+        s3Client.deleteObject(bucket, imageUrl.replace(cloudFrontDomain + "/", ""));
+    }
 }

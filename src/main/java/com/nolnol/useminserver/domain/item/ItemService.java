@@ -21,4 +21,6 @@ public interface ItemService {
     MyItemListDto findAllByOwnerId(Long memberId);
 
     void updateState(Item item, String state);
+
+    void delete(Item item);
 }

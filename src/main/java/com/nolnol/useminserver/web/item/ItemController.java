@@ -58,6 +58,8 @@ public class ItemController {
             return ResponseEntity.badRequest().build();
         }
 
+        itemService.delete(item);
+
         return ResponseEntity.ok().build();
     }
 

@@ -144,4 +144,11 @@ public class ItemServiceImpl implements ItemService {
 
         item.complete();
     }
+
+    @Transactional
+    @Override
+    public void delete(Item item) {
+        itemRepository.delete(item);
+        s3Utils.remove(item.getImageUrl());
+    }
 }
