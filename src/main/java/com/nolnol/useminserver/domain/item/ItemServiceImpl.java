@@ -65,21 +65,22 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> getItems(String category, Long cursorId) {
         Item cursorItem;
-        if (cursorId == null) {
+        if (cursorId == 0) {
             cursorItem = itemRepository.findByMinStartTime().orElseThrow(NoSuchElementException::new);
             cursorId = cursorItem.getId();
         } else {
             cursorItem = itemRepository.findById(cursorId).orElseThrow(NoSuchElementException::new);
         }
 
-        if (category == null) {
+        category = category.toUpperCase();
+
+        if (category.equals("ALL")) {
             return itemRepository.findAllBeforeExpiration(
                     LocalDateTime.now(),
                     cursorItem.getAvailableStartTime(),
                     cursorId,
                     10);
         }
-        category = category.toUpperCase();
 
         return itemRepository.findAllByCategoryBeforeExpiration(
                 category,

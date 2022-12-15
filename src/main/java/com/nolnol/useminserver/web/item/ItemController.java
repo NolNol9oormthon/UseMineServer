@@ -40,7 +40,7 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public ResponseEntity<List<ItemListResponseDto>> getItems(@RequestParam(name = "category", required = false) String category, @RequestParam(name = "cursorId", required = false) Long cursorId) {
+    public ResponseEntity<List<ItemListResponseDto>> getItems(@RequestParam(name = "category") String category, @RequestParam(name = "cursorId") Long cursorId) {
         List<Item> itemList = itemService.getItems(category, cursorId);
         List<ItemListResponseDto> response = itemList.stream()
                                                      .map(ItemListResponseDto::new)
