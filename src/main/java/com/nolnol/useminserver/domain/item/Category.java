@@ -4,11 +4,12 @@ import lombok.Getter;
 
 @Getter
 public enum Category {
-    BEAUTY("미용"),
-    ELECTRONICS("예약중"),
-    EMERGENCY_MEDICINE("비상약"),
-    KIDS("아이 관련"),
-    LEISURE("레져 관련");
+    FOOD("식품"),
+    CLOTHES("의류"),
+    NECESSITIES("생활 용품"),
+    SOUVENIR("기념품"),
+    ELECTRONICS("전자 기기"),
+    ETC("기타");
 
     private final String value;
 
