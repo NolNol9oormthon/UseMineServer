@@ -12,9 +12,9 @@ class JasyptTest {
 
     private PooledPBEStringEncryptor jasyptStringEncryptor;
 
-    private static final String password = "9oormthon4th_nolnol";
+    private static final String password = "secret";
     private static final String defaultRawText = "test";
-    private static final String defaultEncryptedText = "WxVXd534hqRoD4PRXyAWFw==";
+    private static final String defaultEncryptedText = "m78evd5y2JX0pBudsk2Dsw==";
 
     @BeforeEach
     public void setUp() {

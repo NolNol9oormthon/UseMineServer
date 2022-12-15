@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(Z9SKWqAs8kZ8r04ieUN8fjhEXdNIayMNqi5aXJrx8+7vyffzr4rvX7cqMUCJOJewJn43m1bcJlVSjigXfy003XxFDoe/5E8g1R54FKD/QPUZFR7vW32UScT0qVXchl7FrDOy/9q3pD7eotXCBOnD+SyX3SYLstPaKwVgQ77HN8gDRvE/GkxPYhC474qMwaXF6n6UjKfpkdeLcc73RWuM6Q==)
+    username: ENC(tjPEky3f0GKrf2eqQi9pqA==)
+    password: ENC(xazzIJDugMtXrRvwgwS6Pg==)
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: false
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      access-key: ENC(PPES3lvb17m9mvU8JFlxjnUkVDCNgXkjnvbW1YNOQ90=)
+      secret-key: ENC(IDVyowki7KfcZqsLFbfHA5NdAj3c9+cOkjKyRYJI2d3YoMLsi3uVDKkElmL3Q6HY+FkL8e+T5oE=)
+    s3:
+      bucket: ENC(G8wjKGi+Cwv0rDog2mlDnnSe9dYKeevD)
+    cloudfront:
+      domain: ENC(mHsNDiGKA3CGHKxZ3eRUSg1sCAyufggfn5nX72liHKcqSzlQHjw5DqBlDPVn4LEE)
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}
