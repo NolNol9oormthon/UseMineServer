@@ -131,13 +131,14 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void updateState(Item item, String state) {
-        state = state.toUpperCase();
-        if (State.AVAILABLE.getValue().equals(state)) {
-            item.available();
-        } else if (State.RESERVED.getValue().equals(state)) {
+        State to = State.valueOf(state.toUpperCase());
+
+        if (State.RESERVED.equals(to)) {
             item.reserved();
-        } else {
+        } else if (State.COMPLETE.equals(to)){
             item.complete();
+        } else if (State.AVAILABLE.equals(to)) {
+            item.available();
         }
 
         itemRepository.save(item);
