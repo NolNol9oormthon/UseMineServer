@@ -136,9 +136,10 @@ public class ItemServiceImpl implements ItemService {
             item.available();
         } else if (State.RESERVED.getValue().equals(state)) {
             item.reserved();
+        } else {
+            item.complete();
         }
 
-        item.complete();
         itemRepository.save(item);
     }
 
