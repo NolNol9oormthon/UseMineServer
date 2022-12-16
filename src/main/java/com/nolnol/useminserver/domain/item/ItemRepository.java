@@ -35,6 +35,4 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Optional<Item> findByMinStartTime();
 
     List<Item> findAllByOwnerIdOrderByIdDesc(Long memberId);
-
-    void update(Item item);
 }

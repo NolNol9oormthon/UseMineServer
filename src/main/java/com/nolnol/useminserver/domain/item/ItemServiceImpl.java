@@ -139,7 +139,7 @@ public class ItemServiceImpl implements ItemService {
         }
 
         item.complete();
-        itemRepository.update(item);
+        itemRepository.save(item);
     }
 
     @Transactional
