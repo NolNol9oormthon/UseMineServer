@@ -15,7 +15,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "where i.available_end_time >= :now " +
             "and i.available_start_time >= :cursorStartTime " +
             "and ((i.available_start_time = :cursorStartTime and i.id > :cursorId) " +
-            "or i.available_start_time >= :cursorStartTime and i.id != :cursorId) " +
+            "or i.available_start_time > :cursorStartTime and i.id != :cursorId) " +
             "order by i.available_end_time, i.available_end_time, i.id " +
             "limit :pageSize",
             nativeQuery = true)
@@ -25,7 +25,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "where i.available_end_time >= :now " +
             "and i.category = :category " +
             "and ((i.available_start_time = :cursorStartTime and i.id > :cursorId) " +
-            "or i.available_start_time >= :cursorStartTime and i.id != :cursorId) " +
+            "or i.available_start_time > :cursorStartTime and i.id != :cursorId) " +
             "order by i.available_end_time, i.available_end_time, i.id " +
             "limit :pageSize",
             nativeQuery = true)
