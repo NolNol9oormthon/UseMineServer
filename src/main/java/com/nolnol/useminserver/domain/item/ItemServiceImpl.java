@@ -109,19 +109,19 @@ public class ItemServiceImpl implements ItemService {
 
             if (item.getState().equals(State.COMPLETE)) {
                 myItemListDto.addCompletedItem(ItemDto.builder()
-                                                 .itemId(item.getId())
-                                                 .itemName(item.getItemName())
-                                                 .imageUrl(item.getImageUrl())
-                                                 .state(item.getState())
-                                                 .build()
+                                                      .itemId(item.getId())
+                                                      .itemName(item.getItemName())
+                                                      .imageUrl(item.getImageUrl())
+                                                      .state(item.getState())
+                                                      .build()
                 );
             } else {
                 myItemListDto.addNotCompletedItem(ItemDto.builder()
-                                                    .itemId(item.getId())
-                                                    .itemName(item.getItemName())
-                                                    .imageUrl(item.getImageUrl())
-                                                    .state(item.getState())
-                                                    .build()
+                                                         .itemId(item.getId())
+                                                         .itemName(item.getItemName())
+                                                         .imageUrl(item.getImageUrl())
+                                                         .state(item.getState())
+                                                         .build()
                 );
             }
         });
@@ -134,15 +134,12 @@ public class ItemServiceImpl implements ItemService {
         state = state.toUpperCase();
         if (State.AVAILABLE.getValue().equals(state)) {
             item.available();
-            return;
-        }
-
-        if (State.RESERVED.getValue().equals(state)) {
+        } else if (State.RESERVED.getValue().equals(state)) {
             item.reserved();
-            return;
         }
 
         item.complete();
+        itemRepository.update(item);
     }
 
     @Transactional
